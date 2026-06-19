@@ -15,7 +15,6 @@ const HomePage: React.FC = () => {
   } = useAppStore();
 
   const displayCredentials = filteredCredentials.slice(0, 3);
-  const displayNotifications = role === 'clinic' ? notifications : filteredNotifications;
   const unpushedNotifications = role === 'clinic'
     ? notifications.filter(n => !n.isPushed)
     : filteredNotifications;

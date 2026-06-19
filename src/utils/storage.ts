@@ -62,10 +62,8 @@ export const loadCredentials = (): ImplantCredential[] => {
     console.warn('[Storage] Failed to load credentials:', e);
   }
   const initialCreds = mockCredentials.map(migrateCredential);
-  if (initialCreds[0]) initialCreds[0].batchNotificationIds = ['notif_001'];
-  if (initialCreds[4]) initialCreds[4].batchNotificationIds = ['notif_001'];
-  if (initialCreds[3]) initialCreds[3].batchNotificationIds = ['notif_004'];
   Taro.setStorageSync(STORAGE_KEYS.CREDENTIALS, initialCreds);
+  console.info('[Storage] Initialized mock credentials, count:', initialCreds.length);
   return initialCreds;
 };
 
@@ -90,20 +88,8 @@ export const loadNotifications = (): BatchNotification[] => {
     console.warn('[Storage] Failed to load notifications:', e);
   }
   const initialNotifs = mockNotifications.map(migrateNotification);
-  if (initialNotifs[0]) {
-    initialNotifs[0].isPushed = true;
-    initialNotifs[0].pushedPatients = [
-      { credentialId: 'cred_001', patientName: '张丽华', patientPhone: '138****6721', pushedAt: '2025-06-19 10:30' },
-      { credentialId: 'cred_005', patientName: '孙志强', patientPhone: '135****5566', pushedAt: '2025-06-19 10:31' }
-    ];
-  }
-  if (initialNotifs[3]) {
-    initialNotifs[3].isPushed = true;
-    initialNotifs[3].pushedPatients = [
-      { credentialId: 'cred_004', patientName: '赵文静', patientPhone: '136****2233', pushedAt: '2025-06-20 09:15' }
-    ];
-  }
   Taro.setStorageSync(STORAGE_KEYS.NOTIFICATIONS, initialNotifs);
+  console.info('[Storage] Initialized mock notifications, count:', initialNotifs.length);
   return initialNotifs;
 };
 

@@ -15,7 +15,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-06-15',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-03-15'
+    createdAt: '2025-03-15',
+    batchNotificationIds: ['notif_001']
   },
   {
     id: 'cred_002',
@@ -31,7 +32,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-07-02',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-04-02'
+    createdAt: '2025-04-02',
+    batchNotificationIds: []
   },
   {
     id: 'cred_003',
@@ -47,7 +49,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-08-10',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-05-10'
+    createdAt: '2025-05-10',
+    batchNotificationIds: []
   },
   {
     id: 'cred_004',
@@ -63,7 +66,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-08-18',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-05-18'
+    createdAt: '2025-05-18',
+    batchNotificationIds: ['notif_004']
   },
   {
     id: 'cred_005',
@@ -79,7 +83,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-08-20',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-05-20'
+    createdAt: '2025-05-20',
+    batchNotificationIds: ['notif_001']
   },
   {
     id: 'cred_006',
@@ -95,7 +100,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-09-01',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-06-01'
+    createdAt: '2025-06-01',
+    batchNotificationIds: []
   },
   {
     id: 'cred_007',
@@ -111,7 +117,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-09-05',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-06-05'
+    createdAt: '2025-06-05',
+    batchNotificationIds: []
   },
   {
     id: 'cred_008',
@@ -127,7 +134,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-09-10',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-06-10'
+    createdAt: '2025-06-10',
+    batchNotificationIds: []
   },
   {
     id: 'cred_009',
@@ -143,7 +151,8 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-09-12',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-06-12'
+    createdAt: '2025-06-12',
+    batchNotificationIds: []
   },
   {
     id: 'cred_010',
@@ -159,6 +168,7 @@ export const mockCredentials: ImplantCredential[] = [
     followUpDate: '2025-09-15',
     clinicName: '仁爱口腔门诊部',
     clinicPhone: '021-5555-1234',
-    createdAt: '2025-06-15'
+    createdAt: '2025-06-15',
+    batchNotificationIds: []
   }
 ];
