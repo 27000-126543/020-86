@@ -18,9 +18,12 @@ const WorkbenchPage: React.FC = () => {
     pushNotification
   } = useAppStore();
 
-  const unpushedNotifications = notifications.filter(n => !n.isPushed);
-  const confirmedCount = credentials.filter(c => c.status === 'confirmed').length;
-  const totalCount = credentials.length;
+  const unpushedNotifications = role === 'clinic'
+    ? notifications.filter(n => !n.isPushed)
+    : [];
+  const statsCredentials = role === 'clinic' ? credentials : filteredCredentials;
+  const confirmedCount = statsCredentials.filter(c => c.status === 'confirmed').length;
+  const totalCount = statsCredentials.length;
 
   const handleSwitchRole = () => {
     const newRole = role === 'clinic' ? 'patient' : 'clinic';

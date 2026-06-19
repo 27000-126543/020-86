@@ -8,20 +8,62 @@ import styles from './index.module.scss';
 
 const CredentialDetailPage: React.FC = () => {
   const router = useRouter();
-  const { credentials, notifications } = useAppStore();
+  const { credentials, notifications, role, currentPatientPhone } = useAppStore();
   const [isDrawing, setIsDrawing] = useState(false);
+  const [permissionChecked, setPermissionChecked] = useState(false);
   const canvasRef = useRef<any>(null);
 
   const credential = credentials.find(c => c.id === router.params.id);
 
-  const linkedNotifications: BatchNotification[] = credential?.batchNotificationIds
-    ? notifications.filter(n => credential.batchNotificationIds!.includes(n.id))
-    : [];
+  const notifIds = credential?.batchNotificationIds ?? [];
+  const linkedNotifications: BatchNotification[] = notifications.filter(n => notifIds.includes(n.id));
 
   if (!credential) {
     return (
       <View className={styles.container}>
-        <Text>凭证不存在</Text>
+        <View className={styles.noPermissionCard}>
+          <Text className={styles.noPermissionIcon}>🔍</Text>
+          <Text className={styles.noPermissionTitle}>凭证不存在</Text>
+          <Text className={styles.noPermissionDesc}>该凭证可能已被删除或链接无效</Text>
+          <View
+            className={styles.noPermissionBtn}
+            onClick={() => Taro.switchTab({ url: '/pages/credential/index' })}
+          >
+            <Text className={styles.noPermissionBtnText}>返回凭证列表</Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  if (role === 'patient' && credential.patientPhone !== currentPatientPhone) {
+    if (!permissionChecked) {
+      setTimeout(() => {
+        setPermissionChecked(true);
+        Taro.showModal({
+          title: '无法查看凭证',
+          content: '这不是您的种植体材料凭证，您只能查看属于您自己的记录。',
+          showCancel: false,
+          confirmText: '返回列表',
+          success: () => {
+            Taro.switchTab({ url: '/pages/credential/index' });
+          }
+        });
+      }, 100);
+    }
+    return (
+      <View className={styles.container}>
+        <View className={styles.noPermissionCard}>
+          <Text className={styles.noPermissionIcon}>🔒</Text>
+          <Text className={styles.noPermissionTitle}>暂无查看权限</Text>
+          <Text className={styles.noPermissionDesc}>您只能查看属于您自己的种植体材料凭证</Text>
+          <View
+            className={styles.noPermissionBtn}
+            onClick={() => Taro.switchTab({ url: '/pages/credential/index' })}
+          >
+            <Text className={styles.noPermissionBtnText}>返回我的凭证</Text>
+          </View>
+        </View>
       </View>
     );
   }

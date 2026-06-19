@@ -249,6 +249,50 @@
   pointer-events: none;
 }
 
+.noPermissionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx $spacing-xl;
+}
+
+.noPermissionIcon {
+  font-size: 120rpx;
+  margin-bottom: $spacing-lg;
+}
+
+.noPermissionTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+}
+
+.noPermissionDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-align: center;
+  line-height: $line-height-loose;
+  margin-bottom: $spacing-xl;
+}
+
+.noPermissionBtn {
+  min-width: 360rpx;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noPermissionBtnText {
+  font-size: $font-size-lg;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
 .bottomBar {
   position: fixed;
   bottom: 0;

@@ -59,19 +59,32 @@ function appReducer(
     }
     case 'PUSH_NOTIFICATION': {
       const { notificationId, pushedPatients } = action.payload;
-      const newNotifications = state.notifications.map(n =>
-        n.id === notificationId
-          ? { ...n, isPushed: true, pushedPatients: [...n.pushedPatients, ...pushedPatients] }
-          : n
-      );
+      const newNotifications = state.notifications.map(n => {
+        if (n.id !== notificationId) return n;
+        const existingIds = new Set(n.pushedPatients.map(p => p.credentialId));
+        const uniqueNewPatients = pushedPatients.filter(p => !existingIds.has(p.credentialId));
+        const mergedPatients = [...n.pushedPatients, ...uniqueNewPatients];
+        const dedupedPatients = mergedPatients.reduce((acc, curr) => {
+          if (!acc.find(p => p.credentialId === curr.credentialId)) {
+            acc.push(curr);
+          }
+          return acc;
+        }, [] as PushedPatient[]);
+        return {
+          ...n,
+          isPushed: true,
+          pushedPatients: dedupedPatients
+        };
+      });
       saveNotifications(newNotifications);
       const newCredentials = state.credentials.map(c => {
         const notif = newNotifications.find(n => n.id === notificationId);
         if (notif && c.batchNumber === notif.batchNumber) {
-          if (!c.batchNotificationIds.includes(notificationId)) {
+          const notifIds = Array.isArray(c.batchNotificationIds) ? c.batchNotificationIds : [];
+          if (!notifIds.includes(notificationId)) {
             return {
               ...c,
-              batchNotificationIds: [...c.batchNotificationIds, notificationId]
+              batchNotificationIds: [...notifIds, notificationId]
             };
           }
         }
@@ -133,7 +146,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const affectedCredentials = state.credentials.filter(
       c => c.batchNumber === notification.batchNumber
     );
-    const pushedPatients: PushedPatient[] = affectedCredentials.map(c => ({
+    const existingIds = new Set(notification.pushedPatients.map(p => p.credentialId));
+    const newCredentials = affectedCredentials.filter(c => !existingIds.has(c.id));
+    if (newCredentials.length === 0 && notification.isPushed) {
+      console.info('[AppStore] Notification already pushed to all patients, skipping:', notificationId);
+      return { pushedPatients: [] };
+    }
+    const pushedPatients: PushedPatient[] = newCredentials.map(c => ({
       credentialId: c.id,
       patientName: c.patientName,
       patientPhone: c.patientPhone,
@@ -143,7 +162,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       type: 'PUSH_NOTIFICATION',
       payload: { notificationId, pushedPatients }
     });
-    console.info('[AppStore] Notification pushed:', notificationId, 'patients:', pushedPatients.length);
+    console.info('[AppStore] Notification pushed:', notificationId, 'new patients:', pushedPatients.length);
     return { pushedPatients: pushedPatients.map(p => p.patientName) };
   };
 
