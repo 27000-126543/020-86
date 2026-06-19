@@ -1,0 +1,100 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+    transform: scale(0.99);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.brand {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+  flex: 1;
+  margin-right: $spacing-sm;
+}
+
+.statusConfirmed {
+  background: rgba($color-credential-confirmed, 0.1);
+  border-radius: $radius-xs;
+  padding: 4rpx 16rpx;
+  flex-shrink: 0;
+}
+
+.statusPending {
+  background: rgba($color-credential-pending, 0.1);
+  border-radius: $radius-xs;
+  padding: 4rpx 16rpx;
+  flex-shrink: 0;
+}
+
+.statusText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}
+
+.statusConfirmed .statusText {
+  color: $color-credential-confirmed;
+}
+
+.statusPending .statusText {
+  color: $color-credential-pending;
+}
+
+.cardBody {
+  border-top: 1rpx solid $color-divider;
+  border-bottom: 1rpx solid $color-divider;
+  padding: $spacing-md 0;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 0;
+}
+
+.infoLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.infoValue {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $spacing-md;
+}
+
+.doctorName {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.followUpDate {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}

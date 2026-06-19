@@ -1,0 +1,109 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding: $spacing-lg $page-padding;
+}
+
+.searchBox {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-md $spacing-lg;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.searchInput {
+  width: 100%;
+  height: 64rpx;
+  background: $color-bg-page;
+  border-radius: $radius-sm;
+  padding: 0 $spacing-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  box-sizing: border-box;
+}
+
+.sectionTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.appointmentCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+    transform: scale(0.99);
+  }
+}
+
+.appointmentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.patientName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.appointmentStatus {
+  padding: 2rpx 16rpx;
+  border-radius: $radius-xs;
+}
+
+.statusWaiting {
+  background: rgba($color-warning, 0.1);
+}
+
+.statusInProgress {
+  background: rgba($color-primary, 0.1);
+}
+
+.statusCompleted {
+  background: rgba($color-credential-confirmed, 0.1);
+}
+
+.statusText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}
+
+.statusWaiting .statusText {
+  color: $color-warning;
+}
+
+.statusInProgress .statusText {
+  color: $color-primary;
+}
+
+.statusCompleted .statusText {
+  color: $color-credential-confirmed;
+}
+
+.appointmentInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.infoTag {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  background: $color-bg-page;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+}

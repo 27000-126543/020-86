@@ -1,0 +1,199 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding: $spacing-lg $page-padding;
+}
+
+.filterBar {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.filterTab {
+  height: 56rpx;
+  padding: 0 24rpx;
+  background: $color-bg-card;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+  box-shadow: $shadow-card;
+
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+.filterTabActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+}
+
+.filterTabText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  white-space: nowrap;
+}
+
+.filterTabActive .filterTabText {
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.notifyCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+  border-left: 6rpx solid $color-batch-alert;
+}
+
+.notifyCardPushed {
+  border-left-color: $color-credential-confirmed;
+}
+
+.notifyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.notifyBrand {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+  flex: 1;
+  margin-right: $spacing-sm;
+}
+
+.notifyStatus {
+  padding: 2rpx 16rpx;
+  border-radius: $radius-xs;
+  flex-shrink: 0;
+}
+
+.statusPending {
+  background: rgba($color-batch-alert, 0.1);
+}
+
+.statusPushed {
+  background: rgba($color-credential-confirmed, 0.1);
+}
+
+.notifyStatusText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}
+
+.statusPending .notifyStatusText {
+  color: $color-batch-alert;
+}
+
+.statusPushed .notifyStatusText {
+  color: $color-credential-confirmed;
+}
+
+.notifyInfo {
+  margin-bottom: $spacing-sm;
+}
+
+.notifyBatch {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: 4rpx;
+}
+
+.notifySupplier {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-bottom: 4rpx;
+}
+
+.notifyDate {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.notifyContent {
+  background: $color-bg-page;
+  border-radius: $radius-sm;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.notifyContentText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.notifyFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.affectedCount {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.pushBtn {
+  height: 64rpx;
+  padding: 0 32rpx;
+  background: linear-gradient(135deg, $color-batch-alert 0%, #ff9955 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.pushBtnDisabled {
+  background: $color-bg-page;
+  opacity: 0.7;
+}
+
+.pushBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}
+
+.pushBtnDisabled .pushBtnText {
+  color: $color-text-disabled;
+}
+
+.reminderPreview {
+  background: #fffbe8;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  margin-top: $spacing-lg;
+  border: 1rpx solid rgba($color-warning, 0.2);
+}
+
+.reminderLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+}
+
+.reminderContent {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
