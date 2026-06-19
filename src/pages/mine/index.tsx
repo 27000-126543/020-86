@@ -5,7 +5,7 @@ import { useAppStore } from '@/store/useAppStore';
 import styles from './index.module.scss';
 
 const MinePage: React.FC = () => {
-  const { role, setRole } = useAppStore();
+  const { role, currentPatientName, currentPatientPhone, setRole } = useAppStore();
 
   const handleSwitchRole = () => {
     const newRole = role === 'clinic' ? 'patient' : 'clinic';
@@ -58,10 +58,10 @@ const MinePage: React.FC = () => {
         </View>
         <View className={styles.profileInfo}>
           <Text className={styles.profileName}>
-            {role === 'clinic' ? '诊所工作人员' : '患者用户'}
+            {role === 'clinic' ? '诊所工作人员' : currentPatientName}
           </Text>
           <Text className={styles.profileRole}>
-            {role === 'clinic' ? '仁爱口腔门诊部' : '种植体凭证持有者'}
+            {role === 'clinic' ? '仁爱口腔门诊部' : currentPatientPhone}
           </Text>
         </View>
       </View>

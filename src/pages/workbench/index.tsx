@@ -7,7 +7,16 @@ import EmptyState from '@/components/EmptyState';
 import styles from './index.module.scss';
 
 const WorkbenchPage: React.FC = () => {
-  const { role, credentials, notifications, setRole, pushNotification } = useAppStore();
+  const {
+    role,
+    currentPatientName,
+    credentials,
+    notifications,
+    filteredCredentials,
+    filteredNotifications,
+    setRole,
+    pushNotification
+  } = useAppStore();
 
   const unpushedNotifications = notifications.filter(n => !n.isPushed);
   const confirmedCount = credentials.filter(c => c.status === 'confirmed').length;
@@ -127,10 +136,20 @@ const WorkbenchPage: React.FC = () => {
       )}
 
       {role === 'patient' && (
-        <EmptyState
-          title="患者模式"
-          description="请切换到诊所模式使用工作台功能"
-        />
+        <View className={styles.statsGrid}>
+          <View className={styles.statItem}>
+            <Text className={styles.statValue}>{currentPatientName}</Text>
+            <Text className={styles.statDesc}>当前患者</Text>
+          </View>
+          <View className={styles.statItem}>
+            <Text className={styles.statValue}>{filteredCredentials.length}</Text>
+            <Text className={styles.statDesc}>我的凭证</Text>
+          </View>
+          <View className={styles.statItem}>
+            <Text className={styles.statValue}>{filteredNotifications.length}</Text>
+            <Text className={styles.statDesc}>复查提醒</Text>
+          </View>
+        </View>
       )}
     </View>
   );

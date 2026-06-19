@@ -19,6 +19,7 @@ export interface ImplantCredential {
   clinicName: string;
   clinicPhone: string;
   createdAt: string;
+  batchNotificationIds: string[];
 }
 
 export interface Appointment {
@@ -32,6 +33,13 @@ export interface Appointment {
   status: 'waiting' | 'in_progress' | 'completed';
 }
 
+export interface PushedPatient {
+  credentialId: string;
+  patientName: string;
+  patientPhone: string;
+  pushedAt: string;
+}
+
 export interface BatchNotification {
   id: string;
   batchNumber: string;
@@ -41,14 +49,20 @@ export interface BatchNotification {
   noticeContent: string;
   affectedPatientCount: number;
   isPushed: boolean;
+  pushedPatients: PushedPatient[];
 }
 
 export interface AppState {
   role: UserRole;
+  currentPatientPhone: string;
+  currentPatientName: string;
   credentials: ImplantCredential[];
   appointments: Appointment[];
   notifications: BatchNotification[];
+  filteredCredentials: ImplantCredential[];
+  filteredNotifications: BatchNotification[];
   setRole: (role: UserRole) => void;
+  setCurrentPatient: (phone: string, name: string) => void;
   addCredential: (credential: ImplantCredential) => void;
-  pushNotification: (id: string) => void;
+  pushNotification: (id: string) => { pushedPatients: string[] };
 }

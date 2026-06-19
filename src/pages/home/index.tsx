@@ -6,12 +6,21 @@ import SectionHeader from '@/components/SectionHeader';
 import styles from './index.module.scss';
 
 const HomePage: React.FC = () => {
-  const { role, credentials, notifications } = useAppStore();
+  const {
+    role,
+    currentPatientName,
+    filteredCredentials,
+    filteredNotifications,
+    notifications
+  } = useAppStore();
 
-  const patientCredentials = credentials.slice(0, 3);
-  const unpushedNotifications = notifications.filter(n => !n.isPushed);
-  const confirmedCount = credentials.filter(c => c.status === 'confirmed').length;
-  const pendingCount = credentials.filter(c => c.status === 'pending').length;
+  const displayCredentials = filteredCredentials.slice(0, 3);
+  const displayNotifications = role === 'clinic' ? notifications : filteredNotifications;
+  const unpushedNotifications = role === 'clinic'
+    ? notifications.filter(n => !n.isPushed)
+    : filteredNotifications;
+  const confirmedCount = filteredCredentials.filter(c => c.status === 'confirmed').length;
+  const pendingCount = filteredCredentials.filter(c => c.status === 'pending').length;
 
   const handleCredentialClick = (id: string) => {
     Taro.navigateTo({ url: `/pages/credentialDetail/index?id=${id}` });
@@ -33,11 +42,13 @@ const HomePage: React.FC = () => {
     Taro.navigateTo({ url: '/pages/batchNotify/index' });
   };
 
+  const hasNotificationForPatient = role === 'patient' && filteredNotifications.length > 0;
+
   return (
     <View className={styles.container}>
       <View className={styles.header}>
         <Text className={styles.greeting}>
-          {role === 'patient' ? '您好，患者' : '您好，医护'}
+          {role === 'patient' ? `您好，${currentPatientName}` : '您好，医护'}
         </Text>
         <Text className={styles.greetingSub}>
           {role === 'patient' ? '查看您的种植体材料凭证' : '管理种植体凭证与批号通知'}
@@ -76,7 +87,7 @@ const HomePage: React.FC = () => {
           </View>
         )}
 
-        {unpushedNotifications.length > 0 && (
+        {(role === 'clinic' && unpushedNotifications.length > 0) && (
           <View className={styles.notificationBanner} onClick={handleViewNotifications}>
             <Text className={styles.notificationIcon}>⚠️</Text>
             <View className={styles.notificationContent}>
@@ -91,6 +102,21 @@ const HomePage: React.FC = () => {
           </View>
         )}
 
+        {hasNotificationForPatient && (
+          <View className={styles.notificationBanner} onClick={handleViewNotifications}>
+            <Text className={styles.notificationIcon}>📋</Text>
+            <View className={styles.notificationContent}>
+              <Text className={styles.notificationTitle}>
+                您有{filteredNotifications.length}条复查提醒
+              </Text>
+              <Text className={styles.notificationDesc}>
+                请联系诊所安排常规复查
+              </Text>
+            </View>
+            <Text className={styles.notificationArrow}>›</Text>
+          </View>
+        )}
+
         <View className={styles.recentSection}>
           <SectionHeader
             title="最近凭证"
@@ -98,7 +124,7 @@ const HomePage: React.FC = () => {
             onAction={handleViewAllCredentials}
           />
           <View className={styles.credentialList}>
-            {patientCredentials.map(cred => (
+            {displayCredentials.map(cred => (
               <View
                 key={cred.id}
                 className={styles.credentialItem}

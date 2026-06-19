@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Input } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import { useAppStore } from '@/store/useAppStore';
@@ -26,6 +26,23 @@ const RecordCredentialPage: React.FC = () => {
   const { appointments, addCredential } = useAppStore();
 
   const selectedAppointment = appointments.find(a => a.id === router.params.appointmentId);
+
+  useEffect(() => {
+    if (!router.params.appointmentId || !selectedAppointment) {
+      console.warn('[RecordCredential] No appointment selected, redirecting back');
+      Taro.showModal({
+        title: '请先选择患者',
+        content: '请从预约列表中选择一位患者后再录入凭证',
+        showCancel: false,
+        confirmText: '返回选择',
+        success: (res) => {
+          if (res.confirm) {
+            Taro.redirectTo({ url: '/pages/selectAppointment/index' });
+          }
+        }
+      });
+    }
+  }, [router.params.appointmentId, selectedAppointment]);
 
   const [batchNumber, setBatchNumber] = useState('');
   const [brand, setBrand] = useState('');
@@ -58,6 +75,10 @@ const RecordCredentialPage: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    if (!selectedAppointment) {
+      Taro.showToast({ title: '请先选择患者', icon: 'none' });
+      return;
+    }
     if (!batchNumber.trim()) {
       Taro.showToast({ title: '请输入批号', icon: 'none' });
       return;
@@ -77,8 +98,8 @@ const RecordCredentialPage: React.FC = () => {
 
     const newCredential: ImplantCredential = {
       id: `cred_${Date.now()}`,
-      patientName: selectedAppointment?.patientName || '未知患者',
-      patientPhone: selectedAppointment?.patientPhone || '',
+      patientName: selectedAppointment.patientName,
+      patientPhone: selectedAppointment.patientPhone,
       brand,
       model: model || '标准型号',
       batchNumber: batchNumber.trim(),
@@ -89,7 +110,8 @@ const RecordCredentialPage: React.FC = () => {
       followUpDate: dayjs(implantDate).add(3, 'month').format('YYYY-MM-DD'),
       clinicName: '仁爱口腔门诊部',
       clinicPhone: '021-5555-1234',
-      createdAt: dayjs().format('YYYY-MM-DD')
+      createdAt: dayjs().format('YYYY-MM-DD'),
+      batchNotificationIds: []
     };
 
     addCredential(newCredential);

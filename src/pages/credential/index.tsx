@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 type FilterTab = 'all' | 'confirmed' | 'pending';
 
 const CredentialPage: React.FC = () => {
-  const { credentials } = useAppStore();
+  const { filteredCredentials } = useAppStore();
   const [activeTab, setActiveTab] = useState<FilterTab>('all');
 
   const tabs: { key: FilterTab; label: string }[] = [
@@ -18,7 +18,7 @@ const CredentialPage: React.FC = () => {
     { key: 'pending', label: '待确认' }
   ];
 
-  const filteredCredentials = credentials.filter(cred => {
+  const displayCredentials = filteredCredentials.filter(cred => {
     if (activeTab === 'all') return true;
     return cred.status === activeTab;
   });
@@ -41,9 +41,9 @@ const CredentialPage: React.FC = () => {
         ))}
       </View>
 
-      {filteredCredentials.length > 0 ? (
+      {displayCredentials.length > 0 ? (
         <View className={styles.list}>
-          {filteredCredentials.map(cred => (
+          {displayCredentials.map(cred => (
             <CredentialCard
               key={cred.id}
               credential={cred}

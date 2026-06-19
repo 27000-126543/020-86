@@ -177,6 +177,92 @@
   color: $color-text-disabled;
 }
 
+.pushedPatientsSection {
+  background: rgba($color-credential-confirmed, 0.05);
+  border-radius: $radius-sm;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+  border: 1rpx solid rgba($color-credential-confirmed, 0.15);
+}
+
+.pushedPatientsTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-credential-confirmed;
+  margin-bottom: $spacing-sm;
+}
+
+.pushedPatientsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.pushedPatientItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12rpx 16rpx;
+  background: $color-bg-card;
+  border-radius: $radius-xs;
+}
+
+.patientInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.patientName {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.patientPhone {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.pushStatus {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.pushStatusIcon {
+  font-size: $font-size-sm;
+  color: $color-credential-confirmed;
+  font-weight: $font-weight-bold;
+}
+
+.pushStatusText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.patientContactBtn {
+  flex: 1;
+  height: 64rpx;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.patientContactBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
 .reminderPreview {
   background: #fffbe8;
   border-radius: $radius-md;
